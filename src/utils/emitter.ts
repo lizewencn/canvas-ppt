@@ -23,7 +23,8 @@ export const enum EmitterEvents {
     FONT_STRIKOUT_CHANGE = "FONT_STRIKOUT_CHANGE",
     FONT_COLOR_CHANGE = "FONT_COLOR_CHANGE",
     FONT_ALIGN_CHANGE = "FONT_ALIGN_CHANGE",
-    FONT_LINEHEIGHT_CHANGE = "FONT_LINEHEIGHT_CHANGE"
+    FONT_LINEHEIGHT_CHANGE = "FONT_LINEHEIGHT_CHANGE",
+    OPEN_DIRECTORY = "OPEN_DIRECTORY"
 }
 
 type Events = {
@@ -47,6 +48,7 @@ type Events = {
     [EmitterEvents.FONT_COLOR_CHANGE]: string;
     [EmitterEvents.FONT_ALIGN_CHANGE]: "left" | "center" | "right";
     [EmitterEvents.FONT_LINEHEIGHT_CHANGE]: number;
+    [EmitterEvents.OPEN_DIRECTORY]: void;
 };
 
 const emitter: Emitter<Events> = mitt<Events>();

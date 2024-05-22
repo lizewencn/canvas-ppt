@@ -37,7 +37,7 @@ let url = process.env.VITE_DEV_SERVER_URL || "dist/index.html";
 
 async function createWindow(filePath?: string) {
     win = new BrowserWindow({
-        title: "MPPTX在线文档",
+        title: app.getName(),
         webPreferences: {
             preload,
             nodeIntegration: true,

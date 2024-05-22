@@ -3,17 +3,17 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/moneyinto/canvas-ppt/stargazers" target="_black">
-        <img src="https://img.shields.io/github/stars/moneyinto/canvas-ppt?logo=github" alt="stars" />
+    <a href="https://github.com/lizewencn/canvas-ppt/stargazers" target="_black">
+        <img src="https://img.shields.io/github/stars/lizewencn/canvas-ppt?logo=github" alt="stars" />
     </a>
-    <a href="https://www.github.com/moneyinto/canvas-ppt/network/members" target="_black">
-        <img src="https://img.shields.io/github/forks/moneyinto/canvas-ppt?logo=github" alt="forks" />
+    <a href="https://www.github.com/lizewencn/canvas-ppt/network/members" target="_black">
+        <img src="https://img.shields.io/github/forks/lizewencn/canvas-ppt?logo=github" alt="forks" />
     </a>
     <a href="https://www.typescriptlang.org" target="_black">
         <img src="https://img.shields.io/badge/language-TypeScript-blue.svg" alt="language">
     </a>
-    <a href="https://github.com/moneyinto/canvas-ppt/issues" target="_black">
-        <img src="https://img.shields.io/github/issues-closed/moneyinto/canvas-ppt.svg" alt="issue">
+    <a href="https://github.com/lizewencn/canvas-ppt/issues" target="_black">
+        <img src="https://img.shields.io/github/issues-closed/lizewencn/canvas-ppt.svg" alt="issue">
     </a>
 </p>
 
@@ -75,7 +75,7 @@ npm run dev
 - [x] 元素动画
 
 #### 文字
-- [x] [研究canvas文本编辑器](https://github.com/moneyinto/canvas-editor)
+- [x] [研究canvas文本编辑器](https://github.com/lizewencn/canvas-editor)
 - [ ] 纵向文本
 - [x] 字体设置
 - [x] 字体大小设置
@@ -146,7 +146,7 @@ npm run dev
 - [x] 删除列
 
 #### 视频
-- [x] [研究canvas播放视频](https://github.com/moneyinto/canvas-video)
+- [x] [研究canvas播放视频](https://github.com/lizewencn/canvas-video)
 - [x] 插入视频
 - [x] 视频渲染
 - [x] 视频播放暂停
@@ -157,7 +157,7 @@ npm run dev
 - [x] 插入音频
 
 #### 公式
-- [x] [研究公式](https://github.com/moneyinto/vue-mathJax)
+- [x] [研究公式](https://github.com/lizewencn/vue-mathJax)
 - [x] 插入公式
 - [x] 编辑公式
 - [x] 填充色
@@ -165,13 +165,13 @@ npm run dev
 - [x] 边框
 
 ### 幻灯片放映
-- [x] [研究canvas实现元素动画](https://github.com/moneyinto/canvas-animation)
+- [x] [研究canvas实现元素动画](https://github.com/lizewencn/canvas-animation)
 - [x] 预览放映
 - [x] 预览元素动画
 - [x] 画笔功能
 - [ ] 页面切换动画
 
-### [electron版本](https://github.com/moneyinto/canvas-ppt/tree/electron)
+### [electron版本](https://github.com/lizewencn/canvas-ppt/tree/electron)
 - [x] 网页唤醒或下载客户端
 - [x] 对应文件格式打开
 - [x] 编辑保存

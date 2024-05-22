@@ -1,5 +1,7 @@
 <template>
     <div class="ppt-nav-menu" @keydown.stop="" tabindex="0">
+        <Directory />
+
         <FileEdit />
 
         <Edit :elements="elements" :slideFocus="slideFocus" />
@@ -23,6 +25,7 @@
 <script lang="ts" setup>
 import { IPPTElement } from "@/types/element";
 import { PropType } from "vue";
+import Directory from "./directory.vue";
 import Edit from "./Edit.vue";
 import Insert from "./Insert.vue";
 import Format from "./Format.vue";
@@ -63,9 +66,9 @@ const openClient = () => {
     customProtocolCheck("mpptx://", () => {
         // 下载客户端
         if (isWin) {
-            window.location.href = "https://github.com/moneyinto/canvas-ppt/releases/download/release/MPPTX.Setup.1.0.0.exe";
+            window.location.href = "https://github.com/lizewencn/canvas-ppt/releases/download/release/MPPTX.Setup.1.0.0.exe";
         } else if (isMac) {
-            window.location.href = "https://github.com/moneyinto/canvas-ppt/releases/download/release/MPPTX-1.0.0.dmg";
+            window.location.href = "https://github.com/lizewencn/canvas-ppt/releases/download/release/MPPTX-1.0.0.dmg";
         }
     });
 };

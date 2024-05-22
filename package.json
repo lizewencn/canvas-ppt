@@ -11,14 +11,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+ssh://git@github.com/moneyinto/canvas-ppt.git"
+        "url": "git+ssh://git@github.com/lizewencn/canvas-ppt.git"
     },
-    "author": "moneyinto",
+    "author": "lizewencn",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/moneyinto/canvas-ppt/issues"
+        "url": "https://github.com/lizewencn/canvas-ppt/issues"
     },
-    "homepage": "https://github.com/moneyinto/canvas-ppt#readme",
+    "homepage": "https://github.com/lizewencn/canvas-ppt#readme",
     "devDependencies": {
         "@types/crypto-js": "^4.1.1",
         "@types/file-saver": "^2.0.5",

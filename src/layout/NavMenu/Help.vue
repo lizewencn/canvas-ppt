@@ -43,12 +43,12 @@ import { HOTKEY_DOC } from "@/config/shortcut";
 
 const visible = ref(false);
 const goIssues = () => {
-    window.open("https://github.com/moneyinto/canvas-ppt/issues", "_blank");
+    window.open("https://github.com/lizewencn/canvas-ppt/issues", "_blank");
 };
 
 const goQuestion = () => {
     window.open(
-        "https://github.com/moneyinto/canvas-ppt/blob/master/doc/QUESTION.md",
+        "https://github.com/lizewencn/canvas-ppt/blob/master/doc/QUESTION.md",
         "_blank"
     );
 };

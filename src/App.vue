@@ -10,6 +10,7 @@
             <Tools :elements="currentElements" />
         </div>
         <div class="ppt-body">
+            <
             <ThumbnailList
                 :switchSlide="switchSlide"
                 :deleteSlide="deleteSlide"
@@ -18,6 +19,7 @@
                 :pasteSlide="pasteSlide"
                 :onSelectedSlide="onSelectedSlide"
             />
+            
             <div class="ppt-content" ref="pptRef" @focus="onCanvasFocus">
                 <div
                     class="ppt-no-slide"
@@ -139,6 +141,11 @@ const openPanel = (show: boolean) => {
     showPanel.value = show;
 };
 
+const onDirectoty = async ()=>{
+    console.log('onDirectoty')
+
+}
+
 const params = new URLSearchParams(location.search);
 const path = params.get("path");
 
@@ -203,6 +210,9 @@ nextTick(async () => {
         emitter.on(EmitterEvents.CUT_SLIDE, cutSlide);
         emitter.on(EmitterEvents.DELETE_SLIDE, deleteSlide);
         emitter.on(EmitterEvents.PASTE_SLIDE, pasteSlide);
+        emitter.on(EmitterEvents.PASTE_SLIDE, pasteSlide);
+        emitter.on(EmitterEvents.OPEN_DIRECTORY, onDirectoty);
+        
     }
 
     emitter.on(EmitterEvents.SHOW_PANELS, openPanel);
@@ -273,6 +283,7 @@ onUnmounted(() => {
     emitter.off(EmitterEvents.DELETE_SLIDE, deleteSlide);
     emitter.off(EmitterEvents.PASTE_SLIDE, pasteSlide);
     emitter.off(EmitterEvents.SHOW_PANELS, openPanel);
+    emitter.off(EmitterEvents.OPEN_DIRECTORY, onDirectoty);
 
     window.removeEventListener("resize", outFullScreen);
     ipcRenderer.off("esc", endPreview);

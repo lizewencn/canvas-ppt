@@ -1,6 +1,6 @@
 {
     "asar": true,
-    "appId": "com.moneyinto.mpptx",
+    "appId": "com.lizewencn.mpptx",
     "productName": "MPPTX",
     "directories": {
         "output": "build"
