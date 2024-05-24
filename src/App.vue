@@ -90,6 +90,12 @@ import isElectron from "is-electron";
 import { ipcRenderer } from "electron";
 import useImport from "./hooks/useImport";
 
+
+const fs = require('fs');
+const nodePath = require('path');
+// const ini = require('ini');
+
+
 const pptRef = ref<HTMLDivElement>();
 const zoom = ref(1);
 const instance = ref<Editor>();
@@ -273,6 +279,11 @@ const endPreview = () => {
 onMounted(() => {
     window.addEventListener("resize", outFullScreen);
     ipcRenderer.on("esc", endPreview);
+    const rootPath = process.cwd()
+    const filePath = nodePath.join(rootPath,'/public/mpptx_slides.mpptx')
+    console.log('onMounted path',filePath)
+    importMPPTX( window.electron.readFile(filePath))
+   
 });
 
 onUnmounted(() => {

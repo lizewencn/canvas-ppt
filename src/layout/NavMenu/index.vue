@@ -1,6 +1,6 @@
 <template>
     <div class="ppt-nav-menu" @keydown.stop="" tabindex="0">
-        <Directory />
+        <!-- <Directory /> -->
 
         <FileEdit />
 

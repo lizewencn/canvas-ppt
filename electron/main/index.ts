@@ -56,7 +56,7 @@ async function createWindow(filePath?: string) {
             process.platform === "darwin"
                 ? [
                       {
-                          label: "MPPTX在线文档",
+                          label: "教学助手",
                           submenu: [
                               {
                                   label: "退出",
