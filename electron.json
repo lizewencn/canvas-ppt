@@ -1,9 +1,13 @@
 {
     "asar": true,
     "appId": "com.lizewencn.mpptx",
-    "productName": "MPPTX",
+    "productName": "王志芬教学助手",
     "directories": {
         "output": "build"
+    },
+    "extraFiles":{
+        "from": "public/", 
+        "to": "public/"
     },
     "mac": {
         "icon": "public/icon.icns",

@@ -37,7 +37,7 @@ export default (
         result = videoList.find((item) => item === fileExt);
         if (result) return "video";
 
-        const radioList = ["mp3", "wav", "wmv"];
+        const radioList = ["mp3", "wav", "wmv",'mpeg'];
         result = radioList.find((item) => item === fileExt);
         if (result) return "audio";
 
@@ -57,12 +57,14 @@ export default (
                 if (path === "mpptx.json") {
                     const result = await zip.file(path)!.async("string");
                     slides = JSON.parse(decrypt(result));
+                    console.log('importMPPTX->slides',slides)
                 } else {
                     const fileExt = path.replace(/.+\./, "");
                     const fileName = path.replace(/(.*\/)*([^.]+).*/ig, "$2");
                     const file = await zip.file(path)!.async("base64");
                     const fileType = getFileType(fileExt);
                     if (fileType) {
+                        console.log('importMPPTX->save file',fileName)
                         await instance?.value?.history.saveFile(
                             fileName,
                             `data:${fileType}/${fileExt};base64,` + file

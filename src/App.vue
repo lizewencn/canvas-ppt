@@ -162,11 +162,11 @@ nextTick(async () => {
 
         instance.value = new Editor(pptRef.value, isElectron() && !isDev ? [] : slides);
 
-        if (!isDev) {
+        // if (!isDev) {
             // electron清空db数据
             await instance.value?.history.getHistorySnapshot();
             await instance.value?.history.clear();
-        }
+        // }
 
         if (!path) hideLoading();
         // 设置初始化页面
