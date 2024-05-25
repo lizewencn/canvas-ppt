@@ -89,9 +89,9 @@ import { message } from "ant-design-vue";
 import isElectron from "is-electron";
 import { ipcRenderer } from "electron";
 import useImport from "./hooks/useImport";
+import DB from "./utils/db";
 
 
-const fs = require('fs');
 const nodePath = require('path');
 // const ini = require('ini');
 
@@ -110,6 +110,11 @@ const splitDisabled = ref(true);
 
 const showPanel = ref(false);
 const showPreview = ref(false);
+
+let lastSelectedTime = 0
+const min_selected_interval = 150
+
+const db = new DB()
 
 provide("instance", instance);
 provide("historyCursor", historyCursor);
@@ -155,6 +160,17 @@ const onDirectoty = async ()=>{
 const params = new URLSearchParams(location.search);
 const path = params.get("path");
 
+ const createAudioTemp=(id: string, file: string) =>{
+        const audio = document.createElement("audio");
+        audio.id = id;
+        audio.src = file;
+        audio.style.visibility = "visible";
+        audio.style.position = "absolute";
+        audio.style.zIndex = "-1000";
+        document.body.appendChild(audio);
+        return audio;
+    }
+
 nextTick(async () => {
     if (pptRef.value) {
         // 是否是开发环境 开发环境加载mock或db中数据
@@ -162,11 +178,11 @@ nextTick(async () => {
 
         instance.value = new Editor(pptRef.value, isElectron() && !isDev ? [] : slides);
 
-        // if (!isDev) {
+        if (!isDev) {
             // electron清空db数据
             await instance.value?.history.getHistorySnapshot();
             await instance.value?.history.clear();
-        // }
+        }
 
         if (!path) hideLoading();
         // 设置初始化页面
@@ -202,7 +218,46 @@ nextTick(async () => {
         instance.value.listener.onSelectedChange = (
             elements: IPPTElement[]
         ) => {
+            const newSelectedTime = new Date().getMilliseconds()
+            if(newSelectedTime - lastSelectedTime<min_selected_interval){
+                return
+            }
             currentElements.value = elements;
+            console.log('listener.onSelectedChange',elements)
+            if(elements.length>0){
+                const target  = elements[0]
+                if(target.type === 'audio' && target.src){
+                    const id_temp = `${target.id}_temp`
+                    let audioEle =  document.getElementById(id_temp) as HTMLMediaElement|undefined
+                    if(!audioEle){
+                        
+                        db.getFile(target.src).then((file:string)=>{
+                            console.log('listener.onSelectedChange,getFile succ',elements)
+                            audioEle = createAudioTemp(id_temp,file)
+                            audioEle.addEventListener('canplay',()=>{
+                                console.log('listener.onSelectedChange,canplay',elements)
+                                audioEle?.play()
+                              })
+                            
+                        }).catch(err=>{
+                            console.error('listener.onSelectedChange,getFile error',err)
+                        })
+                    }else{
+                        if(audioEle?.paused){
+                            console.log('listener.onSelectedChange,play')
+                            audioEle?.play()
+                        }else{
+                            console.log('listener.onSelectedChange,pause')
+                            audioEle?.pause()
+                       }
+                    }
+                   
+                    
+                    
+                    
+                }   
+                
+            }
         };
 
         instance.value.listener.onTableCellEditChange = (merge, split) => {
@@ -223,7 +278,7 @@ nextTick(async () => {
 
     emitter.on(EmitterEvents.SHOW_PANELS, openPanel);
 
-    onLoadFile();
+    // onLoadFile();
 });
 
 // 暂存文件路径，为了后面保存使用
@@ -233,12 +288,21 @@ const loading = ref(false);
 const percent = ref(0);
 const { importMPPTX } = useImport(instance, loading, percent);
 const onLoadFile = async () => {
+    console.log('onLoadFile,path = ',path)
     if (isElectron()) {
-        if (path) {
+        const rootPath = process.cwd()
+        const defaultPath = nodePath.join(rootPath,'/public/mpptx_slides.mpptx')
+        console.log('onLoadFile,default path = ',defaultPath)
+        if(path){
+            message.info(`use history path:${path}`)
             storePath.value = path;
-            const file = window.electron.readFile(path);
-            await importMPPTX(file)
+        }else{
+            message.info(`use default path:${defaultPath}`)
         }
+
+        const file = window.electron.readFile(path||defaultPath);
+        await importMPPTX(file)
+        
     }
     hideLoading();
 };
@@ -279,11 +343,16 @@ const endPreview = () => {
 onMounted(() => {
     window.addEventListener("resize", outFullScreen);
     ipcRenderer.on("esc", endPreview);
-    const rootPath = process.cwd()
-    const filePath = nodePath.join(rootPath,'/public/mpptx_slides.mpptx')
-    console.log('onMounted path',filePath)
-    importMPPTX( window.electron.readFile(filePath))
-   
+    // setTimeout(() => {
+
+    //   const rootPath = process.cwd()
+    //   const filePath = nodePath.join(rootPath,'/public/mpptx_slides.mpptx')
+    //   console.log('onMounted path',filePath)
+    //   importMPPTX( window.electron.readFile(filePath)).then(()=>{
+    //     hideLoading()
+    //   })
+
+    // }, 5000);
 });
 
 onUnmounted(() => {

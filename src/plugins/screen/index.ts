@@ -25,7 +25,10 @@ export default class Screen {
 
     private _videoControlType = "";
     private _audioControlType = "";
-    public mouseSingleClick: () => void = () => {};
+    public mouseSingleClick: () => void = () => {
+
+        console.log('mouseSingleClick')
+    };
     constructor(container: HTMLDivElement, slide: ISlide) {
         this.slide = slide;
         this._storeSlide = slide;
@@ -95,7 +98,7 @@ export default class Screen {
         const audio = document.createElement("audio");
         audio.id = id;
         audio.src = file;
-        audio.style.visibility = "hidden";
+        audio.style.visibility = "visible";
         audio.style.position = "absolute";
         audio.style.zIndex = "-1000";
         document.body.appendChild(audio);

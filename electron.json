@@ -28,7 +28,7 @@
         "installerHeaderIcon": "./public/icon.ico",
         "createDesktopShortcut": true,
         "createStartMenuShortcut": true,
-        "shortcutName": "MPPTX",
+        "shortcutName": "教学助手",
         "include": "installer.nsh"
     },
     "win": {
