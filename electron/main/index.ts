@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut, Menu } from "electron";
+import { app, BrowserWindow, globalShortcut, Menu,ipcMain } from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
 import ElectronLog from "electron-log";
@@ -135,3 +135,12 @@ app.on("activate", () => {
         createWindow();
     }
 });
+
+ipcMain.on('query-path',(e)=>{
+    try {
+        e.sender.send('query-path-replay',process.argv[1])
+    } catch (error) {
+        console.error('query-path replay error',error)
+    }
+   
+})

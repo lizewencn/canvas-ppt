@@ -1,7 +1,7 @@
 {
     "name": "mpptx",
-    "version": "1.1.10",
-    "description": "canvas实现ppt功能",
+    "version": "1.1.14",
+    "description": "一个写着玩的工具，规划功能未全部实现",
     "main": "dist-electron/main/index.js",
     "scripts": {
         "dev": "vite",

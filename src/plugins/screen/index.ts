@@ -25,7 +25,7 @@ export default class Screen {
 
     private _videoControlType = "";
     private _audioControlType = "";
-    public mouseSingleClick: () => void = () => {
+    public mouseSingleClick: (event?:MouseEvent) => void = () => {
 
         console.log('mouseSingleClick')
     };
@@ -189,7 +189,7 @@ export default class Screen {
                 }
             }
         } else {
-            this.mouseSingleClick();
+            this.mouseSingleClick(evt);
         }
     }
 
@@ -277,6 +277,7 @@ export default class Screen {
     }
 
     public prevStep() {
+        console.log('prevStep 0,animationIndex=',this.stageConfig.animationIndex)
         if (this.stageConfig.animationIndex > -1) {
             const animations = this.slide.animations || [];
             const start = this.stageConfig.animationIndex;

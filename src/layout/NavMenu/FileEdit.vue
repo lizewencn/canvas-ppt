@@ -10,13 +10,13 @@
                     <div class="ppt-menu-option">&nbsp;&nbsp;导出mpptx</div>
                 </a-menu-item>
                 <a-menu-divider />
-                <a-menu-item key="importPPTX">
+                <!-- <a-menu-item key="importPPTX">
                     <div class="ppt-menu-option">&nbsp;&nbsp;导入pptx</div>
                 </a-menu-item>
                 <a-menu-item key="exportPPTX">
                     <div class="ppt-menu-option">&nbsp;&nbsp;导出pptx</div>
-                </a-menu-item>
-                <a-menu-divider />
+                </a-menu-item> -->
+                <!-- <a-menu-divider /> -->
                 <a-menu-item>
                     <div class="ppt-menu-option" @click="onSaveAs">
                         &nbsp;&nbsp;另存为

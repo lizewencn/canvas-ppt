@@ -287,22 +287,35 @@ provide("storePath", storePath);
 const loading = ref(false);
 const percent = ref(0);
 const { importMPPTX } = useImport(instance, loading, percent);
-const onLoadFile = async () => {
+const onLoadFile = async (externalePath?:string) => {
     console.log('onLoadFile,path = ',path)
+    // message.info(`onLoadFile:${path}`)
     if (isElectron()) {
-        const rootPath = process.cwd()
-        const defaultPath = nodePath.join(rootPath,'/public/mpptx_slides.mpptx')
-        console.log('onLoadFile,default path = ',defaultPath)
-        if(path){
-            message.info(`use history path:${path}`)
-            storePath.value = path;
+       
+        let finalPath = ""
+        if(externalePath){
+            finalPath = externalePath
+        }else if(path){
+            finalPath = path
         }else{
-            message.info(`use default path:${defaultPath}`)
+             // const defaultFile = nodePath.join(process.cwd(),'/public/mpptx_slides.mpptx')
+            const defaultPath = ""
+            console.log('onLoadFile,default path = ',defaultPath)
+            finalPath = defaultPath
         }
+       
+        // if(path){  
+        //     console.log(`use history path:${path}`)
+        //     storePath.value = path;
+        // }else{
 
-        const file = window.electron.readFile(path||defaultPath);
-        await importMPPTX(file)
-        
+        //     console.log(`use default path:${defaultPath}`)
+        // }
+        if(finalPath){
+            message.info(`正在打开文件:${path}`)
+            const file = window.electron.readFile(finalPath);
+            await importMPPTX(file)
+        }  
     }
     hideLoading();
 };
@@ -343,6 +356,15 @@ const endPreview = () => {
 onMounted(() => {
     window.addEventListener("resize", outFullScreen);
     ipcRenderer.on("esc", endPreview);
+    ipcRenderer.send('query-path');
+    ipcRenderer.on('query-path-replay',(_,filePath?:string)=>{
+        console.log('--query-path-replay--',filePath)
+        if (filePath && filePath.endsWith('.mpptx')) {
+            console.log('open file with init',filePath)
+            onLoadFile(filePath)
+        }
+    })
+
     // setTimeout(() => {
 
     //   const rootPath = process.cwd()

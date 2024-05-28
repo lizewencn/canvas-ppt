@@ -100,7 +100,7 @@ nextTick(() => {
             previewSlide.value
         );
 
-        screen.mouseSingleClick = next;
+        screen.mouseSingleClick = onMouseClick;
 
         screenRef.value.focus();
     }
@@ -126,20 +126,35 @@ const renderWhiteboardElements = () => {
 };
 
 const prev = async () => {
+    console.log('prev 0')
     const animations = previewSlide.value.animations || [];
     const firstClickIndex = animations.findIndex(item => item.trigger === "click");
+    console.log('prev 0',screen?.stageConfig.animationIndex,firstClickIndex)
     if (screen && screen.stageConfig.animationIndex >= firstClickIndex) {
+        console.log('prev 1')
         screen.prevStep();
     } else if (previewSlideIndex.value > 0) {
+        console.log('prev 2')
         saveWhiteboardElements();
         previewSlideIndex.value--;
         await updateSlide("prev");
         renderWhiteboardElements();
-        // screen && screen.resetLastAnimationIndex();
+        // screen && screen.resetLastAnimationIndex(screen.slide);
     } else {
         message.warning("已经是第一页了");
     }
 };
+
+const prevPage = async () => {
+    if(previewSlideIndex.value <=0 ){
+        message.warning("已经是第一页了");
+        return
+    }
+    saveWhiteboardElements();
+    previewSlideIndex.value--;
+    await updateSlide("prev");
+    renderWhiteboardElements();
+}
 
 const next = async () => {
     const animations = previewSlide.value.animations;
@@ -162,7 +177,8 @@ const onKeydown = (event: KeyboardEvent) => {
         case KeyMap.Left:
         case KeyMap.Up: {
             // 上一页
-            prev();
+            // prev();
+            prevPage()
             break;
         }
         case KeyMap.Right:
@@ -178,6 +194,23 @@ const onKeydown = (event: KeyboardEvent) => {
         (event.target as HTMLDivElement).focus();
     }, 100);
 };
+
+const onMouseClick = (event?:MouseEvent)=>{
+    event?.preventDefault();
+    console.log('onContextMenu',event)
+    if(event?.button === 0){
+        // 左键
+        next()
+
+    }else if(event?.button === 2){
+        //右键
+        prevPage()
+
+    }else if(event?.button === 1 || event?.button === 1){
+        //中间滑轮
+
+    }
+}
 
 const endPreview = () => {
     emit("endPreview");
